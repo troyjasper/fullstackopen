@@ -1,6 +1,19 @@
+```mermaid
 sequenceDiagram
     participant browser
     participant server
+
+    
+
+    Note right of browser: The user enters text into the text field
+    Note right of browser: Nothing happens until the user presses SAVE
+    browser->>server: POST https://fullstack-exampleapp.herokuapp.com/new_note
+    activate server
+    server-->>browser: 302 found (aka URL redirect to do a new HTTP GET to Location: /notes)
+    deactivate server
+    activate browser
+    Note right of browser: Reload notes page, causing 3 more HTTP requests
+    Note right of browser: Stylesheet, HTML, Javascript
 
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
     activate server
@@ -21,7 +34,9 @@ sequenceDiagram
 
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
     activate server
-    server-->>browser: [{ "content": "HTML is easy", "date": "2023-1-1" }, ... ]
+    server-->>browser: [{ "content": "USERS NOTE", "date": "TODAY, RIGHT NOW" }, ... ]
     deactivate server
 
     Note right of browser: The browser executes the callback function that renders the notes
+
+```
